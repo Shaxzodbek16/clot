@@ -1,4 +1,4 @@
-name: Django CI
+name: authentication CI
 on:
   push:
     branches: [ main ]

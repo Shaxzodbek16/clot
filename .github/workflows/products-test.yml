@@ -1,4 +1,4 @@
-name: Django CI
+name: products CI
 on:
   push:
     branches: [ main ]
