@@ -1,8 +1,9 @@
 from pathlib import Path
+
 from dotenv import load_dotenv
 import os
 
-load_dotenv('.env')
+load_dotenv(".env")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,11 +24,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Third party apps
     "rest_framework",
-    "rest_framework.authtoken",
-    'django_filters',
+    "django_filters",
+    "drf_yasg",
     # Local apps
     "authentication",
-    'products',
+    "products",
+    "payments",
 ]
 
 MIDDLEWARE = [
@@ -45,7 +47,7 @@ ROOT_URLCONF = "clot.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -71,12 +73,10 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ],
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
-    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 
 # Password validation
@@ -113,7 +113,12 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles/")
+MEDIA_URL = os.path.join(BASE_DIR, "media/")
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+AUTH_USER_MODEL = "authentication.User"
