@@ -1,4 +1,7 @@
+from multiprocessing.connection import Client
+
 from slugify import slugify
+import random
 
 
 def generate_unique_slug(instance, value, slug_field_name="slug"):
@@ -10,3 +13,11 @@ def generate_unique_slug(instance, value, slug_field_name="slug"):
         counter += 1
 
     return slug
+
+
+def generate_code():
+    return random.randint(100000, 999999)
+
+
+def send_sms(phone_number, name, code, template="verification"):
+    pass

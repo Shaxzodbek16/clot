@@ -70,7 +70,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     profile_picture = models.ImageField(
         upload_to="profile_pictures/%Y/%m/%d", blank=True, null=True
     )
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -168,4 +168,19 @@ class Notification(models.Model):
         verbose_name = "Notification"
         verbose_name_plural = "Notifications"
         db_table = "notifications"
+        ordering = ["-created_at"]
+
+
+class OneTimePassword(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="otps")
+    passcode = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"OTP for {self.user.phone_number}: {self.passcode}"
+
+    class Meta:
+        verbose_name = "One Time Password"
+        verbose_name_plural = "One Time Passwords"
+        db_table = "otp"
         ordering = ["-created_at"]
