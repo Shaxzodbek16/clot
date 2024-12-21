@@ -121,7 +121,8 @@ class AuthView(views.APIView):
 
         tokens = self._generate_tokens(user)
         return Response(
-            {"message": "OTP verified successfully", "user_slug": user.slug, **tokens}
+            {"message": "OTP verified successfully", "user_slug": user.slug, **tokens},
+            status=status.HTTP_200_OK,
         )
 
     @staticmethod
