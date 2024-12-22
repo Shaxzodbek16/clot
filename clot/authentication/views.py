@@ -16,6 +16,12 @@ from rest_framework_simplejwt.token_blacklist.models import (
     OutstandingToken,
     BlacklistedToken,
 )
+from enum import Enum
+
+
+class SMSMessage(Enum):
+    REGISTRATION = "registration"
+    FORGOT_PASSWORD = "forgot_password"
 
 
 from .models import OneTimePassword, User
@@ -94,7 +100,7 @@ class AuthView(views.APIView):
             phone_number=user.phone_number,
             name=user.first_name,
             code=otp_code,
-            template="registration",
+            type=SMSMessage.REGISTRATION.value,
         )
 
         return Response(
@@ -180,7 +186,7 @@ class AuthView(views.APIView):
             phone_number=user.phone_number,
             name=user.first_name,
             code=otp_code,
-            template="forgot_password",
+            type=SMSMessage.FORGOT_PASSWORD.value,
         )
 
         return Response({"message": "OTP sent successfully", "user_slug": user.slug})
