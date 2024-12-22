@@ -3,7 +3,7 @@ from pyexpat.errors import messages
 from slugify import slugify
 import random
 
-from clot.authentication.views import SMSMessage
+from .views import SMSMessage
 
 
 def generate_unique_slug(instance, value, slug_field_name="slug"):
