@@ -16,12 +16,7 @@ from rest_framework_simplejwt.token_blacklist.models import (
     OutstandingToken,
     BlacklistedToken,
 )
-from enum import Enum
-
-
-class SMSMessage(Enum):
-    REGISTRATION = "registration"
-    FORGOT_PASSWORD = "forgot_password"
+from .extensions import SMSMessage
 
 
 from .models import OneTimePassword, User
